@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+    ngrok:
+        image: ngrok/ngrok:latest
+        restart: unless-stopped
+        command: ["start", "--all", "--config", "/etc/ngrok.yml"]
+        # command:
+        #   - "start"
+        #   - "--all"
+        #   - "--config"
+        #   - "/etc/ngrok.yml"
+        volumes:
+          - ./config/ngrok.yml:/etc/ngrok.yml
+        ports:
+          - 4040:4040
+
+# STATIC DOMAIN
+#ngrok http --domain=upright-oarfish-rational.ngrok-free.app 80
+
+#### May use this command
+# docker run -it -e NGROK_AUTHTOKEN=***************************** ngrok/ngrok:latest http host.docker.internal:8080     # tunnel to host:port instead of localhost
+
+#/var/lib/ngrok/ngrok.yml /var/lib/ngrok/auth-config.yml
+# docker run -it -e NGROK_AUTHTOKEN=***************************** ngrok/ngrok:latest http 80                            # secure public URL for port 80 web server
+# [PAID ACCOUNT ONLY] docker run -it -e NGROK_AUTHTOKEN=********* ngrok/ngrok:latest http --domain=baz.ngrok.dev 8080   # port 8080 available at baz.ngrok.dev
+# docker run -it -e NGROK_AUTHTOKEN=***************************** ngrok/ngrok:latest http foo.dev:80                    # tunnel to host:port instead of localhost
+# docker run -it -e NGROK_AUTHTOKEN=***************************** ngrok/ngrok:latest http https://localhost:5001        # expose a local https server running on port 5001
+# docker run -it -e NGROK_AUTHTOKEN=***************************** ngrok/ngrok:latest tcp 22                             # tunnel arbitrary TCP traffic to port 22
+# docker run -it -e NGROK_AUTHTOKEN=***************************** ngrok/ngrok:latest tls --domain=foo.com 443           # TLS traffic for foo.com to port 443
+# docker run -it -e NGROK_AUTHTOKEN=***************************** ngrok/ngrok:latest start foo bar baz                  # start tunnels from the configuration file

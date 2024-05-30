@@ -1,0 +1,18 @@
+authtoken: ***************************
+version: 2
+log_level: info
+log_format: logfmt
+log: stdout
+tunnels:
+  httpbin:
+    proto: http
+    hostname: upright-oarfish-rational.ngrok-free.app
+    addr: host.docker.internal:8080
+
+    # -------------------------
+    # Additional options
+    # -------------------------
+    # auth: "username:password"
+    # host_header: rewrite
+    # inspect: true
+    # bind_tls: true

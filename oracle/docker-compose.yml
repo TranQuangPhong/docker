@@ -1,0 +1,37 @@
+# version: '3.8'
+
+# services:
+#   oracle12c:
+#     image: randomdog/oracle:12c
+#     environment:
+#       IMPORT_FROM_VOLUME: true
+#     ports:
+#       - 1521:1521
+#       - 8080:8080
+#     volumes:
+#       - vol1:/d1/
+# volumes:
+#   vol1:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       device: "/home/"
+#       o: bind
+
+version: '3'
+services:
+    oracle:
+      container_name: oracle
+      image: registry.akadev.io/library/oracle:21c
+      volumes:
+        - ./oradata:/opt/oracle/oradata
+      environment:
+        ORACLE_PDB: orcl
+        ORACLE_PWD: "#Fsoft12345"
+        INIT_SGA_SIZE: 3000
+        INIT_PGA_SIZE: 1000
+        ENABLE_ARCHIVELOG: "true"
+      ports:
+        - "1521:1521"
+        - "5500:5500"
+      restart: always

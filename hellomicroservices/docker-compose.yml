@@ -1,0 +1,8 @@
+version: '3'
+services:
+  config-server:
+    image: randomdog/configserver:1.0
+    build:
+      context: ./config_server
+    ports:
+      - 8085:8085

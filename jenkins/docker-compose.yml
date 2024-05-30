@@ -1,0 +1,24 @@
+ version: '3.8'
+ services:
+    jenkins:
+      image: jenkins/jenkins:lts
+      privileged: true
+      restart: unless-stopped
+      #command: ["usermod", "-a", "-G", "root", "jenkins"]
+      #  ["usermod", "-a", "-G", "docker", "jenkins"]
+      #command: ["usermod -a -G root jenkins"]
+      #  ["sudo usermod -a -G docker jenkins"]
+      # command: sh -c "apt-get update && apt-get install sudo"
+      user: root
+      ports:
+       - 8080:8080
+       - 50000:50000
+      container_name: jenkins
+      volumes:
+        - ~/jenkins:/var/jenkins_home
+        - /var/run/docker.sock:/var/run/docker.sock
+        - /usr/local/bin/docker:/usr/local/bin/docker
+
+#First admin user
+#admin/admin
+#phong/mail 2

@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+
+  mongo_1:
+    image: mongodb/mongodb-community-server
+    container_name: mongo_1
+    restart: always
+    command: ["mongod", "--replSet", "my-replica-set"]
+    # entrypoint: ["/scripts/replica-set-init.sh"]
+    networks:
+      - mongo-network
+    ports:
+       - 27017:27017
+    # environment:
+    #   MONGODB_INITDB_ROOT_USERNAME: root
+    #   MONGODB_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - type: bind
+        source: ./data-cluster/mongo_1
+        target: /data/db
+      - type: bind
+        source: ./scripts/replica-set-init.sh
+        target: /scripts/replica-set-init.sh
+
+  mongo_2:
+    image: mongodb/mongodb-community-server
+    container_name: mongo_2
+    restart: always
+    command: ["mongod", "--replSet", "my-replica-set"]
+    networks:
+      - mongo-network
+    ports:
+       - 27018:27017
+    # environment:
+    #   MONGODB_INITDB_ROOT_USERNAME: root
+    #   MONGODB_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - type: bind
+        source: ./data-cluster/mongo_2
+        target: /data/db
+
+  mongo_3:
+    image: mongodb/mongodb-community-server
+    container_name: mongo_3
+    restart: always
+    command: ["mongod", "--replSet", "my-replica-set"]
+    networks:
+      - mongo-network
+    ports:
+       - 27019:27017
+    # environment:
+    #   MONGODB_INITDB_ROOT_USERNAME: root
+    #   MONGODB_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - type: bind
+        source: ./data-cluster/mongo_3
+        target: /data/db
+
+networks:
+  mongo-network:
+    driver: bridge
