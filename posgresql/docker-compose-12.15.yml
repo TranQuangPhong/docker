@@ -2,20 +2,23 @@ version: '3'
 
 services:
   db:
-    image: postgres
+    image: postgres:12.15
     # restart: always
     volumes:
-      - ./pgdata:/var/lib/postgresql/data/pgdata
+      - ./pgdata12.15:/var/lib/postgresql/data/pgdata
+      - ./conf/openssl.cnf:/etc/ssl/openssl.cnf
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: example
       POSTGRES_DB: default
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
-      - 5432:5432
+      - 5433:5432
 
   # adminer:
   #   image: adminer
   #   restart: always
   #   ports:
   #     - 8080:8080
+  
+  # docker-compose -f .\docker-compose-12.15.yml up -d

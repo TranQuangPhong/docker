@@ -26,6 +26,7 @@ replay_pid*
 /ngrok/config/ngrok.yml
 /oracle/oradata/
 /posgresql/pgdata/
+/posgresql/pgdata12.15/
 /redis/volume/
 /mysql/volume_1/
 /mongoDb/data-cluster/
